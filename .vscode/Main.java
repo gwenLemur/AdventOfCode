@@ -8,7 +8,7 @@ class Main {
 
     //scan
     ArrayList<String> text = new ArrayList<String>();
-    try (BufferedReader br = new BufferedReader(new FileReader("text.txt"))) {
+    try (BufferedReader br = new BufferedReader(new FileReader("text.md"))) {
       String line;
       while ((line = br.readLine()) != null) {
         //add all lines to arraylist
@@ -18,9 +18,7 @@ class Main {
       e.printStackTrace();
     }
 
-    //var declaration
-    ArrayList<int[]> gears = new ArrayList<int[]>();
-    int sum = 0;
+    //var declarations
     
     // for line
     for (int line = 0; line < text.size(); line++) {
