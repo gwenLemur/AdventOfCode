@@ -30,6 +30,6 @@ class Main {
     }
 
    //final answer
-    System.out.println("the result is: ");
+    System.out.println("the result is: "+ text.get(0));
   }
 }
