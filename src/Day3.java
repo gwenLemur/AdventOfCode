@@ -18,14 +18,18 @@ class Day3 {
       e.printStackTrace();
     }
 
-    //use ArrayList "text" to solve the problem here
+    //var declarations
+    
+    // for line
+    for (int line = 0; line < text.size(); line++) {
+      // within line
+      for (int i = 0; i < text.get(line).length(); i++) {
 
-    //final answer
-    System.out.println("the result is: ");
+       
+      }
+    }
+
+   //final answer
+    System.out.println("the result is: "+ text.get(0));
   }
 }
-
-
-
-
-
