@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+//Part 2
 class Day2 {
   public static void main(String[] args) {
 
