@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 class Day5 {
   public static void main(String[] args) {
@@ -32,7 +31,6 @@ class Day5 {
     }
 
 
-
     //var declarations
    int[][] rules = new int[text.size()][2];
 
@@ -54,8 +52,6 @@ class Day5 {
 
 
 
-
-
   public static int inOrder(String lin,  int[][] rules){
 
     ArrayList<String> li = new ArrayList<String>();
@@ -66,13 +62,8 @@ class Day5 {
     for (int i = 0; i < li.size(); i++) {
         
         for(int j=0; j<rules.length; j++){
-            if(li.get(i).equals(""+rules[j][0]) && contains(lin.substring(0,i*3),""+rules[j][1])){
-                //System.out.println(rules[j][0]+"|"+rules[j][1] +" for "+lin+" because "+lin.substring(0,i*3).indexOf(rules[j][1]));
-                return getMiddle(li, rules, lin);
-            }
-
-            if(li.get(i).equals(""+rules[j][1]) && contains(lin.substring(i*3), ""+rules[j][0])){
-                //System.out.println(rules[j][0]+"||"+rules[j][1] +" for "+lin+" because "+lin.substring(i*3).indexOf(rules[j][0]));
+            if(li.get(i).equals(""+rules[j][0]) && contains(lin.substring(0,i*3),""+rules[j][1])
+            || li.get(i).equals(""+rules[j][1]) && contains(lin.substring(i*3), ""+rules[j][0])){
                 return getMiddle(li, rules, lin);
             }
             
@@ -84,41 +75,30 @@ class Day5 {
   }
 
 
-
-
-
+  //sorting algorithm
   public static int getMiddle(ArrayList<String> li,  int[][] rules, String lin){
     
-    while(!correct(li, rules, lin)){
-        //Collections.shuffle(li);
-
-
-
-        for (int i = 0; i < li.size(); i++) {
-            for(int j=0; j<rules.length; j++){
-                if(li.get(i).equals(""+rules[j][0]) && contains(lin.substring(0,i*3),""+rules[j][1])){
-                    //System.out.println(rules[j][0]+"|"+rules[j][1] +" for "+lin+" because "+lin.substring(0,i*3).indexOf(rules[j][1]));
+    //what place is being filled
+    for(int i=0; i<li.size()-1; i++){
+        //what its being compared to
+        for(int j=i+1; j<li.size(); j++){
+            //rules
+            for(int k=0; k<rules.length; k++){
+                if(li.get(i).equals(""+rules[k][1]) && li.get(j).equals(""+rules[k][0])){
+                    //preform a swap
                     String x = li.get(i);
-                    String r = ""+rules[j][1];
-                    li.set(i, indexOf(lin, r));
-                }
-    
-                if(li.get(i).equals(""+rules[j][1]) && contains(lin.substring(i*3), ""+rules[j][0])){
-                    //System.out.println(rules[j][0]+"||"+rules[j][1] +" for "+lin+" because "+lin.substring(i*3).indexOf(rules[j][0]));
-                    return false;
+                    li.set(i, li.get(j));
+                    li.set(j, x);
+                    j=i;
                 }
             }
+
         }
     }
 
-    
-    System.out.println("bogo!");
     return Integer.parseInt(li.get(li.size()/2));
-  }
-
-
-
-
+    }
+    
 
   public static boolean correct(ArrayList<String> li,  int[][] rules, String lin){
 
