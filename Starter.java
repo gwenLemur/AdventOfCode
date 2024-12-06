@@ -3,7 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-class Day1 {
+class Day6 {
   public static void main(String[] args) {
 
     //scan
