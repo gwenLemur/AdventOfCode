@@ -25,21 +25,20 @@ class Day6 {
     int sum = 0;
 
     
-  
+  //get ^ initial position
     for (int line = 0; line < text.size(); line++) {
       for (int i = 0; i < text.get(line).length(); i++) {
         if(text.get(line).substring(i,i+1).equals("^")){
           x = i;
           y = line;
-          
         }
       }
     }
 
-    System.out.println(text.get(0).length()*text.size());
+    //System.out.println(text.get(0).length()*text.size());
 
     int count = 0;
-    while(count<=500000 && x!=0 && x!=text.get(0).length()-1 && y!=0 && y!=text.size()-1){
+    while( x!=0 && x!=text.get(0).length()-1 && y!=0 && y!=text.size()-1){
       count ++;
 
       if(direction.equals("w")){
@@ -66,7 +65,6 @@ class Day6 {
         }else{
           direction = "s";
           text.set(y, text.get(y).substring(0,x)+"+"+text.get(y).substring(x+1));
-          
         }
       }
 
@@ -107,70 +105,82 @@ class Day6 {
     }
 
     
+    int j = 0;
 
+    for (int line = 0; line < text.size(); line++) {
+      for (int i = 0; i < text.get(line).length(); i++) {
+        
+          if(text.get(line).substring(i, i+1).equals("X")){
+            j++;
+          }
+        
+      }
+    }
 
    //final answer
-    System.out.println("the result is: "+ sum);
+    System.out.println("the result is: "+ j);
   }
-     //>1200
+  //>1200
 
 
 
-      //will it return to the origional position?
-     public static boolean isInfinite(ArrayList<String> text, int x, int y, int dire){
+  //will it return to the origional position?
+  public static boolean isInfinite(ArrayList<String> text, int x, int y, int dire){
 
-      String direction = "";
-      if(dire==1) direction = "w";
-      else if(dire==2) direction = "d";
-      else if(dire==3) direction = "s";
-      else if(dire==4) direction = "a";
+    String direction = "";
+    if(dire==1) direction = "w";
+    else if(dire==2) direction = "d";
+    else if(dire==3) direction = "s";
+    else if(dire==4) direction = "a";
 
-      int xO = x;
-      int yO = y;
-      
-      int count = 1;
-      while(count==1|| xO!=x&&yO!=y && x!=0 && x!=text.get(0).length()-1 && y!=0 && y!=text.size()-1){
-        count++;
+    int xO = x;
+    int yO = y;
+    
+    int count = 0;
+    while(count==0 ||  ( x!=0 && x!=text.get(0).length()-1 && y!=0 && y!=text.size()-1)){
+      count++;
 
-        
-  
-        if(direction.equals("w")){
-          if(!text.get(y-1).substring(x, x+1).equals("#")){
-            y--;
-          }else{
-            direction = "d";
-          }
+      if(direction.equals("w")){
+        if(!text.get(y-1).substring(x, x+1).equals("#")){
+          y--;
+        }else{
+          direction = "d";
         }
-  
-        else if(direction.equals("d")){
-          if(!text.get(y).substring(x+1, x+2).equals("#")){
-            x++;
-          }else{
-            direction = "s";
-          }
-        }
-  
-        else if(direction.equals("s")){
-          if(!text.get(y+1).substring(x, x+1).equals("#")){
-            y++;
-          }else{
-            direction = "a";
-          }
-        }
-  
-        else if(direction.equals("a")){
-          if(!text.get(y).substring(x-1, x).equals("#")){
-            x--;
-          }else{
-            direction = "w";
-          }
-        }
-
-        if(xO==x&&yO==y) return true;
       }
 
-      return xO==x && yO==y;
-     }
+      else if(direction.equals("d")){
+        if(!text.get(y).substring(x+1, x+2).equals("#")){
+          x++;
+        }else{
+          direction = "s";
+        }
+      }
+
+      else if(direction.equals("s")){
+        if(!text.get(y+1).substring(x, x+1).equals("#")){
+          y++;
+        }else{
+          direction = "a";
+        }
+      }
+
+      else if(direction.equals("a")){
+        if(!text.get(y).substring(x-1, x).equals("#")){
+          x--;
+        }else{
+          direction = "w";
+        }
+      }
+
+      if(xO==x&&yO==y || count>=100000) {
+        text.set(y, text.get(y).substring(0,x)+"X"+text.get(y).substring(x+1));
+        System.out.println(count);
+       return true;
+      }
+    }
+
+    return false;
+    }
 }
 
 
